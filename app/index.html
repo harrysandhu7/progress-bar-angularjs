@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en-GB" ng-app="progressbar"><head>
+<meta charset="utf-8">
+<title>Progress Bars using AngularJs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- build:css css/progressBar.min.css -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/custom.css">
+<!-- endbuild -->
+
+<!-- build:js js/angular.min.js -->
+<script src='js/lib/angular-1.5.8/angular.min.js'></script>
+<!-- endbuild -->
+
+</head>
+<body ng-controller="progressbarController" class="container-fluid">
+    <div class="row">
+        <div class="progress-bar-container">
+            <h1>Progress Bars Demo!</h1>
+            <h3 ng-show="!progressBarData">Loading...</h3>
+            <div ng-show="progressBarData" id="container">
+                <!-- Progress bar directive -->
+                <progress-bar ng-repeat="bar in progressBarData.bars track by $index" bar-label="Progress Bar {{$index+1}}" bar-value="{{bar}}" bar-limit="{{progressBarData.limit}}"></progress-bar>
+                <div class="row">
+                    <div class="progress-select-container">
+                        <!-- Progress bar switcher -->
+                        <select name="progressBarSwitcher" ng-model="selectedBar" class="form-control" ng-init="selectedBar='0'">
+                            <option ng-repeat="select in progressBarData.bars track by $index" value="{{$index}}">Progress Bar {{$index+1}}</option>
+                        </select>
+                    </div>
+                    <div class="progress-buttons-container">
+                        <!-- Control Buttons -->
+                        <button ng-repeat="button in progressBarData.buttons track by $index" class="btn btn-info margin-right-10 margin-top-20" ng-click="updateProgressBar(button)">{{button}}</button>
+                    </div>
+                </div>
+            </div>
+            <h3 ng-show="progressBarData">Progress Bar Data: {{progressBarData}}</h3>
+        </div>
+    </div>
+
+    <!-- build:js js/progressBar.min.js -->
+    <script src="js/app.js"></script>
+    <script src='js/controllers/progressbarController.js'></script>
+    <script src='js/directives/progressbarDirective.js'></script>
+    <!-- endbuild -->
+</body>
+</html>
